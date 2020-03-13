@@ -1,2 +1,2 @@
-Django==2.0
+django>=2.2.10
 django-suit==0.2.28
