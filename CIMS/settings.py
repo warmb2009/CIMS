@@ -31,19 +31,24 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+#    'bootstrap_admin',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+#    'CIMS_Main',
 ]
+
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -103,18 +108,31 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+DATETIME_FORMAT = 'Y-m-d H:i:s'
+DATE_FORMAT = 'Y-m-d'
 STATIC_URL = '/static/'
+
+SUIT_CONFIG = {  # suit页面配置
+    'ADMIN_NAME': '会议信息管理系统',  #登录界面提示
+    'LIST_PER_PAGE': 20,
+    'MENU': (
+            'web',
+             # {'label': '发布会管理', 'app': 'sign', 'models': ('sign.Event','sign.Guest')},  #每一个字典表示左侧菜单的一栏
+             # {'label': '用户管理', 'app': 'sign', 'models': ('sign.Userprofile','sign.UserGroup','auth.Group')},
+             # {'label': u'SQL管理', 'app': 'web_sso', 'models': ('web_sso.Sql', 'web_sso.PreSql', 'web_sso.Direction')},  # 可以是多个字典
+             ),
+    # label表示name，app表示上边的install的app，models表示用了哪些models
+}
