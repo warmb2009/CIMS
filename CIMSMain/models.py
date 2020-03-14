@@ -15,10 +15,10 @@ class Meeting(models.Model):
     location = models.ForeignKey('ConferenceRoom', db_column='conference_room', on_delete=models.CASCADE, verbose_name='会议地点')
 
     # 会议信道
-    channel = models.ForeignKey('Channel', db_column='channel', on_delete=models.CASCADE, verbose_name='省级会议信道', blank=True, null=True)
+    channel = models.ManyToManyField('Channel', db_column='channel', verbose_name='省级会议信道', blank=True)
 
     # 市局信道
-    local_channel = models.ForeignKey('LocalChannel', db_column='local_channel', on_delete=models.CASCADE, verbose_name='市级会议信道', blank=True, null=True)
+    local_channel = models.ManyToManyField('LocalChannel', db_column='local_channel', verbose_name='市级会议信道', blank=True)
     
     # 办会人员 多对多
     staffs = models.ManyToManyField('Staff', verbose_name='办会人员')
