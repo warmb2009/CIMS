@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'CIMSMain',
+    'CS',
 ]
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
