@@ -129,7 +129,7 @@ class Level(models.Model):
 # 省级信道
 class Channel(models.Model):
     name = models.CharField(max_length=64, verbose_name='省级信道')
-    
+    sign = models.CharField(max_length=64, verbose_name='标志', blank=True)
     def __str__(self):
         return self.name
     
