@@ -16,25 +16,12 @@ class Daily(models.Model):
 
 # 省厅点名
 class RollCall(models.Model):
-    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, verbose_name='点名信道', blank=True, null=True)
+    channel = models.ForeignKey('RollChannel', on_delete=models.CASCADE, verbose_name='点名信道', blank=True, null=True)
     time = models.TimeField(verbose_name='点名时间', blank=True, null=True)
     roll_type = models.ForeignKey('RollType', on_delete=models.CASCADE, verbose_name='点名类型', blank=True, null=True)
     order_return = models.ForeignKey('OrderReturn', on_delete=models.CASCADE, verbose_name='点名结果', blank=True, null=True)
     
 #    def _j_str__(self):
-#        return order_return.name
-
-    class Meta:
-        verbose_name_plural = '点名情况'
-
-# 市局点名
-class CityRollCall(models.Model):
-    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, verbose_name='点名信道', blank=True, null=True)
-    time = models.TimeField(verbose_name='点名时间', blank=True, null=True)
-    roll_type = models.ForeignKey('RollType', on_delete=models.CASCADE, verbose_name='点名类型', blank=True, null=True)
-    order_return = models.ForeignKey('OrderReturn', on_delete=models.CASCADE, verbose_name='点名结果', blank=True, null=True)
-    
-#    def __str__(self):
 #        return order_return.name
 
     class Meta:
@@ -61,13 +48,24 @@ class OrderReturn(models.Model):
     class Meta:
         verbose_name_plural = '点名结果'
 
-
+# 点名级别
 class RollType(models.Model):
-    name = models.CharField(max_length=32, verbose_name="点名类型")
+    name = models.CharField(max_length=32, verbose_name="点名级别")
     
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = '点名级别'
+
+        
+# 点名信道
+class RollChannel(models.Model):
+    name = models.CharField(max_length=32, verbose_name="点名信道")
+    
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = '点名信道'
         
