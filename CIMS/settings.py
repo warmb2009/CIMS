@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'CIMSMain',
     'CS',
+    'RC',
 ]
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
