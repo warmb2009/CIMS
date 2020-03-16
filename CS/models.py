@@ -12,7 +12,7 @@ class Staff(models.Model):
     Set = models.ForeignKey('Set', on_delete=models.CASCADE, verbose_name='单位')
     
     def __str__(self):
-        return self.name
+        return self.Set.name + '\t' + self.name + ' (电话: ' + self.phone1 + ') '
 
     class Meta:
         verbose_name_plural='保障专班'
