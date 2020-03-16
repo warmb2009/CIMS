@@ -42,10 +42,10 @@ class Meeting(models.Model):
     modify_date = models.DateTimeField(db_column='modify_date', verbose_name='最后修改日期', auto_now = True)
     
     def __str__(self):
-        return self.name
+        return str(self.date) + '\t' + self.name + '\t(' +self.location.name + '--\t' +self.office.name + ')'
 
     class Meta:
-        verbose_name_plural='会议'
+        verbose_name_plural='会议汇总'
 
         
 # 会议室
@@ -62,23 +62,23 @@ class ConferenceRoom(models.Model):
 # 单位
 class Office(models.Model):
     name = models.CharField(max_length=64, verbose_name='单位')
-    oset = models.ForeignKey('Set', db_column='office_set', on_delete=models.CASCADE, verbose_name='机关')
+    oset = models.ForeignKey('Set', db_column='office_set', on_delete=models.CASCADE, verbose_name='所属机关')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name_plural='单位'
+        verbose_name_plural='办会单位'
 
         
 # 机关
 class Set(models.Model):
-    name = models.CharField(max_length=64, verbose_name='机关')
+    name = models.CharField(max_length=64, verbose_name='机关名称')
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name_plural='机关'
+        verbose_name_plural='所属机关'
 
         
 # 工作人员
@@ -93,7 +93,7 @@ class Staff(models.Model):
         return self.name
     
     class Meta:
-        verbose_name_plural='工作人员'
+        verbose_name_plural='工作人员汇总'
 
         
 # 工作身份 负责人 工作人员 两种    
