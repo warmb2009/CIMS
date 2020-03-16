@@ -128,7 +128,7 @@ DATE_FORMAT = 'Y-m-d'
 STATIC_URL = '/static/'
 
 SUIT_CONFIG = {  # suit页面配置
-    'ADMIN_NAME': '泰安市局图控CIMS',  #登录界面提示
+    'ADMIN_NAME': '会议信息管理系统',  #登录界面提示
     'LIST_PER_PAGE': 20,
     'MENU': (
             'web',
