@@ -42,7 +42,15 @@ INSTALLED_APPS = [
     'CIMSMain',
     'CS',
     'RC',
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 10
+}
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 
