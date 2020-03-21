@@ -1,9 +1,8 @@
 from django.db import models
 
-# Create your models here.
 
 class Staff(models.Model):
-     
+    ''' 人员 '''     
     name = models.CharField(max_length=32, verbose_name='姓名')    
     title = models.ForeignKey('Title', on_delete=models.CASCADE, verbose_name='职务')
     phone1 = models.CharField(max_length=64, verbose_name='联系方式')
@@ -16,10 +15,10 @@ class Staff(models.Model):
 
     class Meta:
         verbose_name_plural='保障专班'
-        
 
-# 单位
+
 class Set(models.Model):
+    '''单位'''
     name = models.CharField(max_length=64, verbose_name='单位')
     
     def __str__(self):
@@ -30,6 +29,7 @@ class Set(models.Model):
 
 
 class Title(models.Model):
+    '''职务'''
     name = models.CharField(max_length=64, verbose_name='职务')
     
     def __str__(self):
