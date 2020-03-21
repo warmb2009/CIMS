@@ -2,7 +2,7 @@ from django.db import models
 import django.utils.timezone as timezone
 
 '''
-
+会议信息
 '''
 class Meeting(models.Model):
     # 会议名称 字符串
@@ -145,4 +145,3 @@ class LocalChannel(models.Model):
     
     class Meta:
         verbose_name_plural='市级信道'
-        

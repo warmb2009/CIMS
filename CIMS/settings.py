@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'CIMSMain',
-    'CS',
-    'RC',
+    'CIMSMain', # 会议信息系统
+    'CS', # 会议保障通信录
+    'RC', # 点名系统
     'rest_framework',
 ]
 
