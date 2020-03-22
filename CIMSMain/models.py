@@ -90,7 +90,7 @@ class Staff(models.Model):
     office = models.ForeignKey('Office', db_column='staff_office', on_delete=models.CASCADE, verbose_name='')
 
     def __str__(self):
-        return self.name
+        return self.name + '   ------    ' + self.office.name
     
     class Meta:
         verbose_name_plural='工作人员汇总'
