@@ -13,7 +13,7 @@ class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all().order_by('-date')
     serializer_class = MeetingSerializer
 
-class MettingsAPIVIew(View):
+class MeetingsAPIView(View):
    """
    查询所有会议
    """
@@ -40,15 +40,15 @@ class MeetingAPIView(View):
        路由： GET  /meetings/<pk>/
        """
        try:
-           book = BookInfo.objects.get(pk=pk)
-       except BookInfo.DoesNotExist:
+           meeting = Meeting.objects.get(pk=pk)
+       except Meeting.DoesNotExist:
            return HttpResponse(status=404)
 
        return JsonResponse({
-           'id': book.id,
-           'btitle': book.btitle,
-           'bpub_date': book.bpub_date,
-           'bread': book.bread,
-           'bcomment': book.bcomment,
-           'image': book.image.url if book.image else ''
+           'id': meeting.id,
+           'btitle': meeting.name,
+           #'bpub_date': meeting.bpub_date,
+           #'bread': meeting.bread,
+           #'bcomment': meeting.bcomment,
+           #'image': meeting.image.url if book.image else ''
        })
