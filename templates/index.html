@@ -102,9 +102,9 @@
       });
     });
 
-    function addTitle(name){
+    function addTitle(name, sname){
 
-      $("#title").append("<h1 class=\"btn btn-primary btn-lg\"><span style=\"white-space:normal;word-break:break-all;word-wrap:break-word\">" + name + "</span></h1>")
+      $("#title").append("<h1 class=\"btn btn-primary btn-lg\"><span style=\"white-space:normal;word-break:break-all;word-wrap:break-word\">" + name + "</span><h6><small>" + sname +"</small><h/6></h1>")
     };
 
     function addInfo(name, data) {
@@ -173,7 +173,7 @@
             success: function (json) { // 获取当前数据
               data = json;
 
-              addTitle(data.mtitle);
+              addTitle(data.mtitle, data.moffice);
               //addInfo('会议名称', data.mtitle);
               addInfo('会议时间', data.mdate);
               addInfo('会议地点', data.mlocation);
@@ -185,7 +185,6 @@
                 addInfo('市级信道', data.mlchannel);
               }
 
-              addInfo('办会单位', data.moffice);
               addInfo('范围', data.mfromlevel + '/' + data.mtolevel);
 
               console.log(data);
