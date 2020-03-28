@@ -88,19 +88,18 @@
           }
         },
         close: function () {
-          
-          
+          $('#users tbody').empty();
         }
       });
     });
 
-    function addInfo(name, data){
-      if (valid) {
-        $("#users tbody").append("<tr>" +
-          "<td>" + name.val() + "</td>" +
-          "<td>" + data.val() + "</td>" +
-          "</tr>");
-      }
+    function addInfo(name, data) {
+
+      $("#users tbody").append("<tr>" +
+        "<td>" + name + "</td>" +
+        "<td>" + data + "</td>" +
+        "</tr>");
+
     };
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -160,6 +159,14 @@
             success: function (json) { // 获取当前数据
               data = json;
 
+              addInfo('会议名称', data.mtitle);
+              addInfo('会议时间', data.mdate);
+              addInfo('会议地点', data.mlocation);
+              addInfo('省级信道', data.mschannel);
+              addInfo('市级信道', data.mlchannel);
+              addInfo('办会单位', data.moffice);
+              addInfo('范围', data.mfromlevel + '/' + data.mtolevel);
+
               console.log(data);
             }
           });
@@ -206,35 +213,12 @@
           <table id="users" class="ui-widget ui-widget-content">
             <thead>
               <tr class="ui-widget-header">
-                <th>名称</th>
+                <th>名称  </th>
                 <th>内容</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>会议名称</td>
-                <td>john.doe@example.com</td>
-              </tr>
-              <tr>
-                <td>会议地点</td>
-                <td>john.doe@example.com</td>
-              </tr>
-              <tr>
-                <td>省级信道</td>
-                <td>john.doe@example.com</td>
-              </tr>
-              <tr>
-                <td>市级信道</td>
-                <td>john.doe@example.com</td>
-              </tr>
-              <tr>
-                <td>办会单位</td>
-                <td>john.doe@example.com</td>
-              </tr>
-              <tr>
-                <td>范围</td>
-                <td>john.doe@example.com</td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
