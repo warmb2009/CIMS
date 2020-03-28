@@ -52,24 +52,19 @@ class MeetingAPIView(View):
             channel_all = meeting.channel.all()
             localchannel_all = meeting.local_channel.all()
            
-            channel_list = []
-            localchannel_list = []
-
-            for channel in channel_all:
-                channel_list.append(channel.name)
-            
-            for localchannel in localchannel_all:
-                localchannel_list.append(localchannel.name)
-            
+            channel_list_str = '/'.join([channel.name for channel in channel_all])
+            localchannel_list_str = '/'.join([channel.name for channel in localchannel_all])
+                        
         except Meeting.DoesNotExist:
             return HttpResponse(status=404)
 
         return JsonResponse({
             'id': meeting.id,
             'mtitle': meeting.name,
+            'mlocation':meeting.location.name,
             'mdate': meeting.date,
-            'mschannel' : channel_list,
-            'mlchannel' : localchannel_list,
+            'mschannel' : channel_list_str,
+            'mlchannel' : localchannel_list_str,
             'mstaffs':meeting.staffs.name,
             'moffice':meeting.office.name,
             'mfromlevel':meeting.from_level.name,
