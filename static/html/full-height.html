@@ -3,6 +3,8 @@
 
 <head>
   <meta charset='utf-8' />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='../packages/core/main.css' rel='stylesheet' />
   <link href='../packages/daygrid/main.css' rel='stylesheet' />
   <link href='../packages/timegrid/main.css' rel='stylesheet' />
@@ -13,8 +15,10 @@
   <script src='../packages/daygrid/main.js'></script>
   <script src='../packages/timegrid/main.js'></script>
   <script src='../packages/list/main.js'></script>
+
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <script src="../packages/core/locales/zh-cn.js"></script>
   <style>
     label,
@@ -31,7 +35,7 @@
     fieldset {
       padding: 0;
       border: 0;
-      margin-top: 25px;
+      margin-top: 2px;
     }
 
     h1 {
@@ -40,8 +44,8 @@
     }
 
     div#users-contain {
-      width: 350px;
-      margin: 20px 0;
+      width: 320px;
+      margin: 2px 0;
     }
 
     div#users-contain table {
@@ -53,7 +57,7 @@
     div#users-contain table td,
     div#users-contain table th {
       border: 1px solid #eee;
-      padding: .6em 10px;
+      padding: .6em 2px;
       text-align: left;
     }
 
@@ -67,31 +71,37 @@
     }
   </style>
   <script>
-    var dialog, form,
-      tips = $(".validateTips");
+    var dialog;
+    $(function () {
+      var tips = $(".validateTips");
 
-    function addUser() { }
+      function addUser() { }
 
-    dialog = $("#dialog-form").dialog({
-      autoOpen: false,
-      height: 400,
-      width: 350,
-      modal: true,
-      buttons: {
-        "Create an account": addUser,
-        Cancel: function () {
-          dialog.dialog("close");
+      dialog = $("#dialog-form").dialog({
+        autoOpen: false,
+        height: 400,
+        width: 350,
+        modal: true,
+        buttons: {
+          Cancel: function () {
+            dialog.dialog("close");
+          }
+        },
+        close: function () {
+          
+          
         }
-      },
-      close: function () {
-        form[0].reset();
+      });
+    });
+
+    function addInfo(name, data){
+      if (valid) {
+        $("#users tbody").append("<tr>" +
+          "<td>" + name.val() + "</td>" +
+          "<td>" + data.val() + "</td>" +
+          "</tr>");
       }
-    });
-
-    form = dialog.find("form").on("submit", function (event) {
-      event.preventDefault();
-    });
-
+    };
 
     document.addEventListener('DOMContentLoaded', function () {
       var calendarEl = document.getElementById('calendar');
@@ -143,13 +153,22 @@
           eveId = info.event.id;
 
           dialog.dialog("open");
+          $.ajax({
+            url: 'http://127.0.0.1:8000/api/meetings/' + eveId,
+            dataType: 'json',
+            data: {},
+            success: function (json) { // 获取当前数据
+              data = json;
+
+              console.log(data);
+            }
+          });
           console.log("touch touch" + eveId);
           //$('#calEventDialog').dialog('open');
         }
       });
       calendar.render();
     });
-
   </script>
   <style>
     html,
@@ -160,7 +179,6 @@
     }
 
     #calendar-container {
-      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -171,37 +189,61 @@
       /*
     the calendar will be butting up against the edges,
     but let's scoot in the header's buttons
-    */
+    
+    
       padding-top: 1em;
       padding-left: 1em;
-      padding-right: 1em;
+      padding-right: 1em;*/
     }
   </style>
 </head>
 
 <body>
-  <div id='calendar-container'>
-    <div id='calendar'></div>
-  </div>
-
-  <div id="dialog-form" title="Create new user">
-    <p class="validateTips">All form fields are required.</p>
+  <div id="dialog-form" title="会议详情">
     <form>
       <fieldset>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" value="xxxxxxx"
-          class="text ui-widget-content ui-corner-all">
-
-        <!-- Allow form submission with keyboard without duplicating the dialog button -->
-        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        <div id="users-contain" class="ui-widget">
+          <table id="users" class="ui-widget ui-widget-content">
+            <thead>
+              <tr class="ui-widget-header">
+                <th>名称</th>
+                <th>内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>会议名称</td>
+                <td>john.doe@example.com</td>
+              </tr>
+              <tr>
+                <td>会议地点</td>
+                <td>john.doe@example.com</td>
+              </tr>
+              <tr>
+                <td>省级信道</td>
+                <td>john.doe@example.com</td>
+              </tr>
+              <tr>
+                <td>市级信道</td>
+                <td>john.doe@example.com</td>
+              </tr>
+              <tr>
+                <td>办会单位</td>
+                <td>john.doe@example.com</td>
+              </tr>
+              <tr>
+                <td>范围</td>
+                <td>john.doe@example.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </fieldset>
     </form>
   </div>
-
+  <div id='calendar-container'>
+    <div id='calendar'></div>
+  </div>
 </body>
 
 </html>
