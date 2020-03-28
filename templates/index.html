@@ -79,8 +79,8 @@
 
       dialog = $("#dialog-form").dialog({
         autoOpen: false,
-        height: 400,
-        width: 350,
+        height: 470,
+        width: 360,
         modal: true,
         buttons: {
           Cancel: function () {
@@ -96,7 +96,7 @@
     function addInfo(name, data) {
 
       $("#users tbody").append("<tr>" +
-        "<td>" + name + "</td>" +
+        "<td style=\"min-width: 70px;\">" + name + "</td>" +
         "<td>" + data + "</td>" +
         "</tr>");
 
@@ -162,8 +162,18 @@
               addInfo('会议名称', data.mtitle);
               addInfo('会议时间', data.mdate);
               addInfo('会议地点', data.mlocation);
-              addInfo('省级信道', data.mschannel);
-              addInfo('市级信道', data.mlchannel);
+
+              if (data.mschannel != "")
+              {
+                addInfo('省级信道', data.mschannel);
+              }
+              if (data.mlchannel != "")
+              {
+                addInfo('市级信道', data.mlchannel);
+              }
+              
+              
+
               addInfo('办会单位', data.moffice);
               addInfo('范围', data.mfromlevel + '/' + data.mtolevel);
 
@@ -213,12 +223,12 @@
           <table id="users" class="ui-widget ui-widget-content">
             <thead>
               <tr class="ui-widget-header">
-                <th>名称  </th>
+                <th>名称</th>
                 <th>内容</th>
               </tr>
             </thead>
             <tbody>
-              
+
             </tbody>
           </table>
         </div>
