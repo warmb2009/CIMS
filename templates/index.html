@@ -11,7 +11,7 @@
   <link href='/static/packages/core/main.css' rel='stylesheet' />
   <link href='/static/packages/bootstrap/main.css' rel='stylesheet' />
   <link href='/static/packages/bootstrap/main.css' rel='stylesheet' />
-  
+
   <link href='/static/packages/daygrid/main.css' rel='stylesheet' />
   <link href='/static/packages/timegrid/main.css' rel='stylesheet' />
   <link href='/static//packages/list/main.css' rel='stylesheet' />
@@ -96,9 +96,16 @@
         },
         close: function () {
           $('#users tbody').empty();
+          $('#title').empty();
+
         }
       });
     });
+
+    function addTitle(name){
+
+      $("#title").append("<h1 class=\"btn btn-primary btn-lg\"><span style=\"white-space:normal;word-break:break-all;word-wrap:break-word\">" + name + "</span></h1>")
+    };
 
     function addInfo(name, data) {
 
@@ -106,21 +113,20 @@
         "<td style=\"min-width: 70px;\">" + name + "</td>" +
         "<td>" + data + "</td>" +
         "</tr>");
-
     };
 
     document.addEventListener('DOMContentLoaded', function () {
       var calendarEl = document.getElementById('calendar');
       var data = null;
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: ['bootstrap','interaction', 'dayGrid', 'timeGrid', 'list'],
+        plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
         height: 'parent',
         header: {
           left: 'prev,next today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
-        themeSystem:'bootstrap4',
+        themeSystem: 'bootstrap4',
         defaultView: 'dayGridMonth',
         defaultDate: '2020-02-12',
         navLinks: true, // can click day/week names to navigate views
@@ -167,19 +173,18 @@
             success: function (json) { // 获取当前数据
               data = json;
 
-              addInfo('会议名称', data.mtitle);
+              addTitle(data.mtitle);
+              //addInfo('会议名称', data.mtitle);
               addInfo('会议时间', data.mdate);
               addInfo('会议地点', data.mlocation);
 
-              if (data.mschannel != "")
-              {
+              if (data.mschannel != "") {
                 addInfo('省级信道', data.mschannel);
               }
-              if (data.mlchannel != "")
-              {
+              if (data.mlchannel != "") {
                 addInfo('市级信道', data.mlchannel);
               }
-              
+
               addInfo('办会单位', data.moffice);
               addInfo('范围', data.mfromlevel + '/' + data.mtolevel);
 
@@ -226,6 +231,9 @@
     <form>
       <fieldset>
         <div id="users-contain" class="ui-widget">
+          <div class="page-header text-center" id="title">
+
+          </div>
           <table id="users" class="table table-striped">
             <thead>
               <tr class="ui-widget-header">
