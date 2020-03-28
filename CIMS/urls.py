@@ -24,7 +24,7 @@ router.register(r'meeting', views.MeetingViewSet)
 
 
 urlpatterns = [
-    url(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
+
     url('^$',views.index),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
