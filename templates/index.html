@@ -10,8 +10,7 @@
 
   <link href='/static/packages/core/main.css' rel='stylesheet' />
   <link href='/static/packages/bootstrap/main.css' rel='stylesheet' />
-  <link href='/static/packages/bootstrap/main.css' rel='stylesheet' />
-
+  <link rel="stylesheet" href="/static/packages/font-awesome/css/font-awesome.min.css">
   <link href='/static/packages/daygrid/main.css' rel='stylesheet' />
   <link href='/static/packages/timegrid/main.css' rel='stylesheet' />
   <link href='/static//packages/list/main.css' rel='stylesheet' />
@@ -102,28 +101,90 @@
       });
     });
 
-    function addTitle(name, sname){
+    function addContent(name, sname) {
+      icon = "";
+      nname = "";
+      if (name == 'time') {
+        nname = "会议时间"
+        icon = "fa fa-clock-o";
+      }
+      if (name == 'location') {
+        nname = "会议地点"
+        icon = "fa fa-map-marker";
+      }
+      if (name == 'schannel') {
+        nname = "省级信道"
+        icon = "fa fa-signal";
+      }
+      if (name == 'lchannel') {
+        nname = "市级信道"
+        icon = "fa fa-signal";
+      }
+      if (name == 'level') {
+        nname = "范围"
+        icon = "fa fa-info-circle";
+      }
+      addInfo(icon, nname, sname)
+    }
 
-      $("#title").append("<h1 class=\"btn btn-primary btn-lg\">" + 
-        "<span style=\"white-space:normal;word-break:break-all;word-wrap:break-word\">" + 
-        name + "</span><h6><small>" + 
-        sname +"</small></h6></h1>")
+    function addTitle(name, sname) {
+
+      $("#title").append("<h1 class=\"btn btn-primary btn-lg\">" +
+        "<span style=\"white-space:normal;word-break:break-all;word-wrap:break-word\">" +
+        name + "</span><h6><small><i class=\"fa fa-user-circle\" aria-hidden=\"true\"></i> " +
+        sname + "</small></h6></h1>")
     };
 
-    function addInfo(name, data) {
-
+    function addInfo(icon, name, data) {
       $("#users tbody").append("<tr>" +
-        "<td style=\"min-width: 70px;\">" + name + "</td>" +
+        "<td style=\"min-width: 70px;\">&nbsp&nbsp" + "<i class=\"" + icon + "\" aria-hidden=\"true\"></i>&nbsp&nbsp" + name + "</td>" +
         "<td>" + data + "</td>" +
         "</tr>");
     };
 
+    function appendZero(obj) {
+      if (obj < 10) return "0" + "" + obj;
+      else return obj;
+    }
+
+    function moment() {
+      var mydate = new Date();
+
+      var str = "" + mydate.getFullYear() + "-";
+      str += appendZero(mydate.getMonth() + 1) + "-";
+      str += appendZero(mydate.getDate());
+      return str;
+    }
+    /**
+     *对Date的扩展，将 Date 转化为指定格式的String
+     *月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
+     *年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+     *例子：
+     *(new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
+     *(new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
+     */
+    Date.prototype.format = function (fmt) {
+      var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+      };
+      if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+      for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+      return fmt;
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
       var calendarEl = document.getElementById('calendar');
+
       var data = null;
       var calendar = new FullCalendar.Calendar(calendarEl, {
         plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
-        height: 'parent',
         header: {
           left: 'prev,next today',
           center: 'title',
@@ -131,9 +192,10 @@
         },
         themeSystem: 'bootstrap4',
         defaultView: 'dayGridMonth',
-        defaultDate: '2020-02-12',
+        defaultDate: moment(),
+        slotDuration: '01:00:00',
         navLinks: true, // can click day/week names to navigate views
-        editable: true,
+        editable: false,
         eventLimit: true, // allow "more" link when too many events
         locale: "zh-CN",
         events:
@@ -149,7 +211,8 @@
                   events.push({
                     id: c.id,
                     title: c.mtitle,
-                    start: c.mdate, // will be parsed                    
+                    start: c.mdate, // will be parsed    
+                    color: c.mcolor,                
                   });
                 });
 
@@ -176,19 +239,23 @@
             success: function (json) { // 获取当前数据
               data = json;
 
+              first_date = new Date(data.mdate);
+              var time = first_date.format("yyyy-MM-dd");
+              var time2 = first_date.format("hh:mm:ss");
+
               addTitle(data.mtitle, data.moffice);
               //addInfo('会议名称', data.mtitle);
-              addInfo('会议时间', data.mdate);
-              addInfo('会议地点', data.mlocation);
+              addContent('time', time + "<br>" + time2);
+              addContent('location', data.mlocation);
 
               if (data.mschannel != "") {
-                addInfo('省级信道', data.mschannel);
+                addContent('schannel', data.mschannel);
               }
               if (data.mlchannel != "") {
-                addInfo('市级信道', data.mlchannel);
+                addContent('lchannel', data.mlchannel);
               }
 
-              addInfo('范围', data.mfromlevel + '/' + data.mtolevel);
+              addContent('level', data.mfromlevel + '/' + data.mtolevel);
 
               console.log(data);
             }
@@ -198,12 +265,14 @@
         }
       });
       calendar.render();
+
     });
   </script>
   <style>
     html,
     body {
-      /* don't do scrollbars */
+      margin: 40px 10px;
+      padding: 0;
       font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
       font-size: 14px;
     }
@@ -224,6 +293,11 @@
       padding-top: 1em;
       padding-left: 1em;
       padding-right: 1em;*/
+    }
+
+    #calendar {
+      max-width: 900px;
+      margin: 0 auto;
     }
   </style>
 </head>
