@@ -2,7 +2,14 @@ from django.contrib import admin
 from .models import *
 
 
-admin.site.register(Meeting)
+class MeetingInfoAdmin(admin.ModelAdmin):
+    
+    list_display = ('name','from_level', 'date', 'office', 'location')
+    search_fields = ('name', 'from_level', 'date', 'office', 'location')
+    list_filter = ('from_level', 'name', 'date', 'office', 'location')
+     
+
+admin.site.register(Meeting, MeetingInfoAdmin)
 #admin.site.register(ConferenceRoom)
 admin.site.register(Office)
 admin.site.register(Set)
