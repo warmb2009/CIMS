@@ -32,10 +32,16 @@ class MeetingsAPIView(View):
         queryset = Meeting.objects.all()
         meeting_list = []
         for meeting in queryset:
+            color = ''
+            if meeting.from_level.name == '省':
+                color = '#ff9f89'
+            elif meeting.from_level.name == '市':
+                color = '#98FB98'
             meeting_list.append({
                'id': meeting.id,
                'mtitle': meeting.name,
                'mdate': meeting.date,
+               'mcolor':color,
             })
         return JsonResponse(meeting_list, safe=False)
 
