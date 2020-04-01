@@ -35,9 +35,11 @@ class Meeting(models.Model):
     # 开至级别 (部 省 市 县 科所) 外键
     to_level = models.ForeignKey('Level', db_column='to_level', on_delete=models.CASCADE, related_name='tolevel', verbose_name='范围')
 
-    # 创建条目日期 date
-    add_date = models.DateTimeField(db_column='add_date', verbose_name='创建条目日期', auto_now_add=True)
+    # 会议状态 已发布 未发布 因故延期 因故取消
+    meeting_status = models.ForeignKey('MeetingStatus', db_column='meeting_status', verbose_name='会议状态', on_delete=models.CASCADE, related_name='meetingstatus', default=1)
 
+    # 会议类型 视频会议 本地会议等
+    meeting_category = models.ForeignKey('MeetingCategory', db_column='meeting_category', verbose_name='会议类型', on_delete=models.CASCADE, related_name='meetingcategory', default=1)
     # 修改日期 date
     modify_date = models.DateTimeField(db_column='modify_date', verbose_name='最后修改日期', auto_now = True)
     
@@ -145,3 +147,24 @@ class LocalChannel(models.Model):
     
     class Meta:
         verbose_name_plural='市级信道'
+
+# 市级信道
+class MeetingStatus(models.Model):
+    name = models.CharField(max_length=64, verbose_name='会议状态')
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural='会议状态'
+
+# 会议种类
+class MeetingCategory(models.Model):
+    name = models.CharField(max_length=64, verbose_name='会议类型')
+    remark = models.CharField(max_length=256, verbose_name='备注', default='')
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural='会议类型'
