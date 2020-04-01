@@ -190,7 +190,7 @@
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
-        nowIndicator : true, 
+        nowIndicator: true,
         themeSystem: 'bootstrap4',
         defaultView: 'dayGridMonth',
         defaultDate: moment(),
@@ -213,7 +213,7 @@
                     id: c.id,
                     title: c.mtitle,
                     start: c.mdate, // will be parsed    
-                    color: c.mcolor,                
+                    color: c.mcolor,
                   });
                 });
 
@@ -294,6 +294,13 @@
       padding-top: 1em;
       padding-left: 1em;
       padding-right: 1em;*/
+    }
+
+    .fc-today {
+      background: rgb(179, 132, 255) !important;
+      border: none !important;
+      border-top: 1px solid #ddd !important;
+      font-weight: bold;
     }
 
     #calendar {
