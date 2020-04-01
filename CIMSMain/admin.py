@@ -19,4 +19,7 @@ admin.site.register(Staff)
 #admin.site.register(Level)
 #admin.site.register(Channel)
 #admin.site.register(LocalChannel)
+#admin.site.register(MeetingStatus)
+#admin.site.register(MeetingCategory)
+
 
