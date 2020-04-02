@@ -26,56 +26,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <script src="/static/packages/core/locales/zh-cn.js"></script>
-  <style>
-    label,
-    input {
-      display: block;
-    }
 
-    input.text {
-      margin-bottom: 12px;
-      width: 95%;
-      padding: .4em;
-    }
-
-    fieldset {
-      padding: 0;
-      border: 0;
-      margin-top: 2px;
-    }
-
-    h1 {
-      font-size: 1.2em;
-      margin: .6em 0;
-    }
-
-    div#users-contain {
-      width: 320px;
-      margin: 2px 0;
-    }
-
-    div#users-contain table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    div#users-contain table td,
-    div#users-contain table th {
-      border: 1px solid #eee;
-      padding: .6em 2px;
-      text-align: left;
-    }
-
-    .ui-dialog .ui-state-error {
-      padding: .3em;
-    }
-
-    .validateTips {
-      border: 1px solid transparent;
-      padding: 0.3em;
-    }
-  </style>
   <script>
     var dialog;
     $(function () {
@@ -93,10 +44,13 @@
             dialog.dialog("close");
           }
         },
+
+        open: function (event, ui) {
+          $(this).dialog("option", "height", 'auto');
+        },
         close: function () {
           $('#users tbody').empty();
           $('#title').empty();
-
         }
       });
     });
@@ -109,21 +63,30 @@
         icon = "fa fa-clock-o";
       }
       if (name == 'location') {
-        nname = "会议地点"
+        nname = "会议地点";
         icon = "fa fa-map-marker";
       }
       if (name == 'schannel') {
-        nname = "省级信道"
+        nname = "省级信道";
         icon = "fa fa-signal";
       }
       if (name == 'lchannel') {
-        nname = "市级信道"
+        nname = "市级信道";
         icon = "fa fa-signal";
       }
       if (name == 'level') {
-        nname = "范围"
+        nname = "范围";
         icon = "fa fa-info-circle";
       }
+      if (name == 'status') {
+        nname = "会议状态";
+        icon = "fa fa-rotate-right";
+      }
+      if (name == 'remark') {
+        nname = "备注";
+        icon = "fa fa-bookmark";
+      }
+
       addInfo(icon, nname, sname)
     }
 
@@ -199,6 +162,10 @@
         editable: false,
         eventLimit: true, // allow "more" link when too many events
         locale: "zh-CN",
+        height: window.innerHeight - 20,
+        windowResize: function (view) {
+          $('#calendar').fullCalendar('option', 'height', window.innerHeight - 20);
+        },
         events:
           function (start, callback) {
             $.ajax({
@@ -216,7 +183,6 @@
                     color: c.mcolor,
                   });
                 });
-
                 callback(events);
               }
             });
@@ -232,7 +198,6 @@
         eventClick: function (info) {
           eveId = info.event.id;
 
-          dialog.dialog("open");
           $.ajax({
             url: 'http://127.0.0.1:8000/api/meetings/' + eveId,
             dataType: 'json',
@@ -257,12 +222,17 @@
               }
 
               addContent('level', data.mfromlevel + '/' + data.mtolevel);
+              addContent('status', data.mstatus);
+              if (data.mremark != "") {
+                addContent('remark', data.mremark);
+              }
 
               console.log(data);
+              dialog.dialog("open");
             }
           });
+
           console.log("touch touch" + eveId);
-          //$('#calEventDialog').dialog('open');
         }
       });
       calendar.render();
@@ -290,10 +260,10 @@
     the calendar will be butting up against the edges,
     but let's scoot in the header's buttons
     
-    
+    */
       padding-top: 1em;
       padding-left: 1em;
-      padding-right: 1em;*/
+      padding-right: 1em;
     }
 
     .fc-today {
@@ -306,7 +276,68 @@
     #calendar {
       max-width: 900px;
       margin: 0 auto;
-      max-height: parent;
+    }
+
+    label,
+    input {
+      display: block;
+    }
+
+    input.text {
+      margin-bottom: 12px;
+      width: 95%;
+      padding: .4em;
+    }
+
+    fieldset {
+      padding: 0;
+      border: 0;
+      margin-top: 2px;
+    }
+
+    h1 {
+      font-size: 1.2em;
+      margin: .6em 0;
+    }
+
+    div#users-contain {
+      width: 320px;
+      margin: 2px 0;
+    }
+
+    div#users-contain table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    div#users-contain table td,
+    div#users-contain table th {
+      border: 1px solid #eee;
+      padding: .6em 2px;
+      text-align: left;
+    }
+
+    .ui-dialog .ui-state-error {
+      padding: .3em;
+    }
+
+    .validateTips {
+      border: 1px solid transparent;
+      padding: 0.3em;
+    }
+
+    div#dialog-form {
+      width: auto;
+      height: auto;
+    }
+
+    .fc-unthemed td.fc-day-top.fc-sat span.fc-day-number {
+      color: red
+    }
+
+    .fc-unthemed td.fc-day-top.fc-sun span.fc-day-number {
+      color: red
     }
   </style>
 </head>
@@ -322,7 +353,6 @@
           <table id="users" class="table table-striped">
             <thead>
               <tr class="ui-widget-header">
-
               </tr>
             </thead>
             <tbody>
