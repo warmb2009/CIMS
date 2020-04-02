@@ -37,11 +37,14 @@ class MeetingsAPIView(View):
                 color = '#ff9f89'
             elif meeting.from_level.name == '市':
                 color = '#98FB98'
+            
+            if meeting.meeting_status.name == '因故取消':
+                continue
             meeting_list.append({
                'id': meeting.id,
                'mtitle': meeting.name,
                'mdate': meeting.date,
-               'mcolor':color,
+               'mcolor':color,               
             })
         return JsonResponse(meeting_list, safe=False)
 
@@ -75,7 +78,8 @@ class MeetingAPIView(View):
             'moffice':meeting.office.name,
             'mfromlevel':meeting.from_level.name,
             'mtolevel':meeting.to_level.name,
-
+            'mstatus':meeting.meeting_status.name,
+            'mremark':meeting.remark,
             # 'bpub_date': meeting.bpub_date,
             # 'bread': meeting.bread,
             # 'bcomment': meeting.bcomment,
