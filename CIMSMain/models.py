@@ -40,6 +40,9 @@ class Meeting(models.Model):
 
     # 会议类型 视频会议 本地会议等
     meeting_category = models.ForeignKey('MeetingCategory', db_column='meeting_category', verbose_name='会议类型', on_delete=models.CASCADE, related_name='meetingcategory', default=1)
+
+    remark = models.CharField(max_length=256, db_column='meeting_remark', verbose_name='备注', default='', null=True)
+
     # 修改日期 date
     modify_date = models.DateTimeField(db_column='modify_date', verbose_name='最后修改日期', auto_now = True)
     
