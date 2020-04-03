@@ -1,0 +1,74 @@
+#calendar-container {
+  background: rgba(25, 186, 139, 0.07);
+  color: #fff;
+}
+/*
+.fc-header-toolbar {
+    padding-top  : .025rem;
+    padding-left : .025rem;
+    padding-right: .025rem;
+}
+*/
+.fc-today {
+  background: #b384ff !important;
+  border: none !important;
+  border-top: 1px solid #ddd !important;
+  font-weight: bold;
+}
+#calendar {
+  /*    max-width: 900px;*/
+  margin: 0 auto;
+}
+fieldset {
+  padding: 0;
+  border: 0;
+  margin-top: 2px;
+}
+#title {
+  font-size: 0.25rem;
+}
+#title .btn {
+  padding: 0 0 0 0;
+  line-height: 1rem;
+}
+#title span {
+  padding: 0 0 0 0;
+  font-size: 0.25rem;
+  line-height: 1rem;
+  white-space: normal;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+#users-contain {
+  width: 5rem;
+  margin: 1px 0;
+  font-size: 0.25rem;
+}
+#users-contain table {
+  margin: 1px 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+#users-contain table th {
+  border: 1px solid #eee;
+  padding: 0.0125rem 0.0125rem;
+  text-align: left;
+  font-size: 0.5rem;
+}
+#users-contain table td {
+  padding: 0 0 0 0;
+  min-width: 0.875rem;
+}
+.ui-dialog {
+  padding: 1px;
+}
+.validateTips {
+  border: 1px solid transparent;
+  padding: 1px;
+}
+.fc-unthemed td.fc-day-top.fc-sat span.fc-day-number {
+  color: red;
+}
+.fc-unthemed td.fc-day-top.fc-sun span.fc-day-number {
+  color: red;
+}
