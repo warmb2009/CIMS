@@ -26,6 +26,7 @@ router.register(r'meeting', views.MeetingViewSet)
 urlpatterns = [
 
     url('^$',views.index),
+    url('chart.html',views.chart),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
