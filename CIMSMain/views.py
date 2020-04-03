@@ -10,6 +10,10 @@ from django.core import serializers
 def index(request):
     return render(request, 'index.html')
     
+    
+def chart(request):
+    return render(request, 'chart.html')
+
 
 class MeetingViewSet(viewsets.ModelViewSet):
     """
