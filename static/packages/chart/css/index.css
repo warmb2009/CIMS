@@ -46,7 +46,7 @@ header .showTime {
 }
 .mainbox .column:nth-child(2) {
   flex: 5;
-  margin: 0.125rem 0.1875rem;
+  margin: 0 0.125rem 0.1875rem;
 }
 .mainbox .panel {
   position: relative;
@@ -103,6 +103,7 @@ header .showTime {
   content: "";
 }
 .mainbox .panel h2 {
+  margin-bottom: 0;
   height: 0.6rem;
   color: #fff;
   line-height: 0.6rem;
@@ -112,7 +113,6 @@ header .showTime {
 }
 .mainbox .panel .chart {
   height: 3rem;
-  background-color: pink;
 }
 .no {
   padding: 0.1875rem;
@@ -124,6 +124,7 @@ header .showTime {
 }
 .no .no-hd ul {
   display: flex;
+  margin-bottom: 0.00125rem;
 }
 .no .no-hd ul li {
   position: relative;
@@ -165,6 +166,7 @@ header .showTime {
 }
 .no .no-bd ul {
   display: flex;
+  margin-bottom: 0.00625rem;
 }
 .no .no-bd ul li {
   flex: 1;
@@ -174,4 +176,77 @@ header .showTime {
   height: 0.5rem;
   line-height: 0.5rem;
   padding-top: 0.125rem;
+}
+.meeting_panel {
+  position: relative;
+  height: 10.125rem;
+}
+.meeting_panel .map1 {
+  width: 6.475rem;
+  height: 6.475rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url(/static/packages/chart/images/map.png);
+  background-size: 100%, 100%;
+  opacity: 0.3;
+}
+.meeting_panel .map2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8.0375rem;
+  height: 8.0375rem;
+  background: url(/static/packages/chart/images/lbx.png);
+  background-size: 100%, 100%;
+  animation: rotate1 15s linear infinite;
+  opacity: 0.6;
+}
+.meeting_panel .map3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7.075rem;
+  height: 7.075rem;
+  background: url(/static/packages/chart/images/jt.png);
+  background-size: 100%, 100%;
+  animation: rotate2 15s linear infinite;
+  opacity: 0.6;
+}
+.meeting_panel .meeting-calendar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10.125rem;
+  opacity: 0.9;
+}
+@keyframes rotate1 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes rotate2 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 42px !important;
+  }
+}
+@media screen and (max-width: 1024px) and screen and (min-width: 1920px) {
+  html {
+    font-size: 80px !important;
+  }
 }
