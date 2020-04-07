@@ -38,9 +38,9 @@ class MeetingsAPIView(View):
         for meeting in queryset:
             color = ''
             if meeting.from_level.name == '省':
-                color = '#ff9f89'
+                color = '#A12F2F'
             elif meeting.from_level.name == '市':
-                color = '#98FB98'
+                color = '#407434'
             
             if meeting.meeting_status.name == '因故取消':
                 continue
