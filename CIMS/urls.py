@@ -32,5 +32,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/meetings$', views.MeetingsAPIView.as_view(), name='meetings'),
     url(r'^api/meetings/(?P<pk>\d+)/$', views.MeetingAPIView.as_view(), name='meeting'),
+    
+    url(r'^api/meetings/count/everymonth/thisyear/$', views.MeetingsCountEveryMonthThisYearView.as_view(), name='meetingcount'),
+    url(r'^api/meetings/count/everymonth/lastyear/$', views.MeetingsCountEveryMonthLastYearView.as_view(), name='meetingcount'),
+
+    url(r'^api/meetings/count/years/$', views.MeetingsCountYearsView.as_view(), name='meetingcount'),
+
 ]
 
