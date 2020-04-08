@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel='stylesheet' href='/static/packages/other/bootstrap.min.css' />
     <link rel="stylesheet" href="/static/packages/chart/css/index.css" />
     <link rel="stylesheet" href="/static/packages/chart/css/calendar.css" />
+    
 
     <link rel='stylesheet' href='/static/packages/other/all.css'>
     <link rel="stylesheet" href="/static/packages/other/jquery-ui.css" />
@@ -17,9 +19,10 @@
     <link rel='stylesheet' href='/static/packages/timegrid/main.css' rel='stylesheet' />
     <link rel='stylesheet' href='/static//packages/list/main.css' rel='stylesheet' />
 </head>
+
 <body>
     <header>
-        <h1>会议信息可视化</h1>
+        <h1>TAGA-图像控制中心</h1>
         <div class="showTime"></div>
         <script>
             var t = null;
@@ -55,12 +58,12 @@
     <section class="mainbox">
         <div class="column">
             <div class="panel bar">
-                <h2>柱状图-就业行业</h2>
+                <h2>今年会议保障情况</h2>
                 <div class="chart"></div>
                 <div class="panel-footer"></div>
             </div>
             <div class="panel line">
-                <h2>折线图-人员变化</h2>
+                <h2>去年会议保障情况</h2>
                 <div class="chart"></div>
                 <div class="panel-footer"></div>
             </div>
@@ -75,14 +78,14 @@
             <div class="no">
                 <div class="no-hd">
                     <ul>
-                        <li>123456</li>
-                        <li>123456</li>
+                        <li class='thisyear'>123456</li>
+                        <li class='lastyear'>123456</li>
                     </ul>
                 </div>
                 <div class="no-bd">
                     <ul>
-                        <li>前端需求人数</li>
-                        <li>市场供应人数</li>
+                        <li>今年保障会议次数</li>
+                        <li>去年保障会议次数</li>
                     </ul>
                 </div>
                 <div class="meeting_panel">
@@ -134,19 +137,20 @@
             </div>
         </div>
     </section>
-    <script src="/static/packages/chart/js/flexible.js"></script>
-    <script src="/static/packages/chart/js/echarts.min.js"></script>
-    <script src='/static/packages/core/main.js'></script>
-    <script src='/static/packages/interaction/main.js'></script>
-    <script src='/static/packages/daygrid/main.js'></script>
-    <script src='/static/packages/timegrid/main.js'></script>
-    <script src='/static/packages/list/main.js'></script>
-    <script src='/static/packages/bootstrap/main.js'></script>
+    <script type='text/javascript' src="/static/packages/chart/js/flexible.js"></script>
+    <script type='text/javascript' src="/static/packages/chart/js/echarts.min.js"></script>
+    <script type='text/javascript' src='/static/packages/core/main.js'></script>
+    <script type='text/javascript' src='/static/packages/interaction/main.js'></script>
+    <script type='text/javascript' src='/static/packages/daygrid/main.js'></script>
+    <script type='text/javascript' src='/static/packages/timegrid/main.js'></script>
+    <script type='text/javascript' src='/static/packages/list/main.js'></script>
+    <script type='text/javascript' src='/static/packages/bootstrap/main.js'></script>
+    
 
-    <script src="/static/packages/chart/js/chart.js"></script>
-    <script src="/static/packages/other/jquery-1.12.4.js"></script>
-    <script src="/static/packages/other/jquery-ui.js"></script>
-    <script src="/static/packages/core/locales/zh-cn.js"></script>
+    <script type='text/javascript' src="/static/packages/other/jquery-1.12.4.js"></script>
+    <script type='text/javascript' src="/static/packages/other/jquery-ui.js"></script>
+    <script type='text/javascript' src="/static/packages/core/locales/zh-cn.js"></script>
+    <script type='text/javascript' src="/static/packages/chart/js/chart.js"></script>
 
     <script>
         var dialog;
@@ -285,9 +289,7 @@
                 eventLimit: true, // allow "more" link when too many events
                 locale: "zh-CN",
                 height: window.innerHeight - 150,
-                //windowResize: function (view) {
-                //    $('#calendar').fullCalendar('option', 'height', window.innerHeight - 20);
-                //},
+                
                 events:
                     function (start, callback) {
                         $.ajax({
@@ -310,10 +312,6 @@
                         });
                     },
                 dayClick: function (date, jsEvent, view) {
-                    console.log("day click!!");
-                    alert('Clicked on: ' + date.format());
-                    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                    alert('Current view: ' + view.name);
                     // change the day's background color just for fun
                     $(this).css('background-color', 'red');
                 },
@@ -332,7 +330,6 @@
                             var time2 = first_date.format("hh:mm:ss");
 
                             addTitle(data.mtitle, data.moffice);
-                            //addInfo('会议名称', data.mtitle);
                             addContent('time', time + "<br>" + time2);
                             addContent('location', data.mlocation);
 
@@ -347,20 +344,16 @@
                             addContent('status', data.mstatus);
                             if (data.mremark != "") {
                                 addContent('remark', data.mremark);
-                            }
-
-                            console.log(data);
+                            }                            
                             dialog.dialog("open");
                         }
-                    });
-
-                    console.log("touch touch" + eveId);
+                    });                    
                 }
             });
             calendar.render();
-
         });
     </script>
+    
 </body>
 
 </html>
