@@ -9,7 +9,7 @@
     <link rel='stylesheet' href='/static/packages/other/bootstrap.min.css' />
     <link rel="stylesheet" href="/static/packages/chart/css/index.css" />
     <link rel="stylesheet" href="/static/packages/chart/css/calendar.css" />
-    
+
 
     <link rel='stylesheet' href='/static/packages/other/all.css'>
     <link rel="stylesheet" href="/static/packages/other/jquery-ui.css" />
@@ -53,6 +53,8 @@
                     "秒";
                 t = setTimeout(time, 1000); //设定定时器，循环运行
             }
+
+
         </script>
     </header>
     <section class="mainbox">
@@ -145,7 +147,7 @@
     <script type='text/javascript' src='/static/packages/timegrid/main.js'></script>
     <script type='text/javascript' src='/static/packages/list/main.js'></script>
     <script type='text/javascript' src='/static/packages/bootstrap/main.js'></script>
-    
+
 
     <script type='text/javascript' src="/static/packages/other/jquery-1.12.4.js"></script>
     <script type='text/javascript' src="/static/packages/other/jquery-ui.js"></script>
@@ -230,6 +232,7 @@
                 "</tr>");
         };
 
+        //10以下加0
         function appendZero(obj) {
             if (obj < 10) return "0" + "" + obj;
             else return obj;
@@ -267,11 +270,12 @@
             return fmt;
         }
 
+        var calendar;
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
 
             var data = null;
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: ['bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list'],
                 header: {
                     left: 'prev,next today',
@@ -289,11 +293,11 @@
                 eventLimit: true, // allow "more" link when too many events
                 locale: "zh-CN",
                 height: window.innerHeight - 150,
-                
+
                 events:
                     function (start, callback) {
                         $.ajax({
-                            url: 'http://127.0.0.1:8000/api/meetings',
+                            url: '/api/meetings',
                             dataType: 'json',
                             data: {},
                             success: function (json) { // 获取当前月的数据
@@ -319,7 +323,7 @@
                     eveId = info.event.id;
 
                     $.ajax({
-                        url: 'http://127.0.0.1:8000/api/meetings/' + eveId,
+                        url: '/api/meetings/' + eveId,
                         dataType: 'json',
                         data: {},
                         success: function (json) { // 获取当前数据
@@ -344,16 +348,21 @@
                             addContent('status', data.mstatus);
                             if (data.mremark != "") {
                                 addContent('remark', data.mremark);
-                            }                            
+                            }
                             dialog.dialog("open");
                         }
-                    });                    
+                    });
                 }
             });
             calendar.render();
         });
+
+        //跳转到某日期
+        function gotoDate(date) {
+            calendar.gotoDate(date);
+        }
     </script>
-    
+
 </body>
 
 </html>

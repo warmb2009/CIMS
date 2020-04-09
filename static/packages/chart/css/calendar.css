@@ -2,13 +2,19 @@
   background: rgba(25, 186, 139, 0.07);
   color: #fff;
 }
-.fc-header-toolbar {
+#calendar-container .fc-list-table .fc-widget-header {
+  background: rgba(0, 0, 0, 0.5);
+}
+#calendar-container .fc-list-table .fc-list-item:hover td {
+  background: rgba(25, 186, 139, 0.5);
+}
+#calendar-container .fc-header-toolbar {
   padding-top: 0.025rem;
   padding-left: 0.025rem;
   padding-right: 0.025rem;
 }
-.fc-today {
-  background: #b384ff !important;
+#calendar-container .fc-today {
+  background: rgba(255, 0, 0, 0.5) !important;
   border: none !important;
   border-top: 1px solid #ddd !important;
   font-weight: bold;

@@ -1,21 +1,48 @@
 #calendar-container {
     background: rgba(25, 186, 139, 0.07);
     color     : #fff;
+
+    .fc-list-heading {
+        //background: rgba(25, 186, 139, 0.1);
+
+    }
+
+    .fc-list-table {
+
+        .fc-widget-header {
+            background: rgba(0, 0, 0, 0.5);
+            ;
+
+        }
+
+        .fc-allow-mouse-resize {
+//            background: rgba(25, 186, 139, 0.1);
+
+        }
+        //鼠标hover颜色
+        .fc-list-item:hover td {
+            background: rgba(25, 186, 139, 0.5);
+
+        }
+    }
+
+
+
+    .fc-header-toolbar {
+        padding-top  : .025rem;
+        padding-left : .025rem;
+        padding-right: .025rem;
+    }
+    //今日的背景色
+    .fc-today {
+        background : rgba(255, 0, 0, 0.5) !important;
+        border     : none !important;
+        border-top : 1px solid #ddd !important;
+        font-weight: bold;
+    }
 }
 
 
-.fc-header-toolbar {
-    padding-top  : .025rem;
-    padding-left : .025rem;
-    padding-right: .025rem;
-}
-
-.fc-today {
-    background : rgb(179, 132, 255) !important;
-    border     : none !important;
-    border-top : 1px solid #ddd !important;
-    font-weight: bold;
-}
 
 #calendar {
     /*    max-width: 900px;*/
@@ -30,36 +57,40 @@ fieldset {
 
 #title {
     font-size: .25rem;
-    
-    .btn-lg{
+
+    .btn-lg {
         font-size: .375rem;
-        padding: .125rem .25rem .125rem .25rem;
-    }
-    span {
-        //padding: 0;
-        //font-size: .25rem;
-        //line-height: .25rem;  
-        white-space: normal;
-        word-break : break-all;
-        word-wrap  : break-word        
-    }
-    .title-line{
-        text-align: center;
-    }
-    .office{
-        text-align: center;
-        line-height: .25rem;
-    }
-    h5{
-        margin-block-end: 0;
-        
+        padding  : .125rem .25rem .125rem .25rem;
     }
 
-    h6{
-        font-size: .25rem;
-        margin-top: .25rem;
-        margin-bottom: .25rem;
+    span {
+        //padding    : 0;
+        //font-size  : .25rem;
+        //line-height: .25rem;  
+        white-space  : normal;
+        word-break   : break-all;
+        word-wrap    : break-word
+    }
+
+    .title-line {
         text-align: center;
+    }
+
+    .office {
+        text-align : center;
+        line-height: .25rem;
+    }
+
+    h5 {
+        margin-block-end: 0;
+
+    }
+
+    h6 {
+        font-size    : .25rem;
+        margin-top   : .25rem;
+        margin-bottom: .25rem;
+        text-align   : center;
     }
 }
 
@@ -72,8 +103,8 @@ fieldset {
         margin         : 1px 0;
         border-collapse: collapse;
         width          : 100%;
-        border: 1px solid #eee;
-        
+        border         : 1px solid #eee;
+
         th {
             border    : 1px solid #eee;
             padding   : .0125rem .0125rem;
@@ -83,20 +114,21 @@ fieldset {
 
         td {
             text-align: left;
-            padding: .6em 2px;
-            min-width: 1.125rem;
+            padding   : .6em 2px;
+            min-width : 1.125rem;
 
         }
     }
 }
 
-#dialog-form{
-    width: 5rem;}
+#dialog-form {
+    width: 5rem;
+}
 
 
 .ui-dialog {
     padding: 1px;
-    width: 10rem;
+    width  : 10rem;
 }
 
 .validateTips {
