@@ -1,18 +1,19 @@
 (function () {
     lastyear = document.querySelector('.no-hd .lastyear');
     thisyear = document.querySelector('.no-hd .thisyear');
-
+    thismonth = document.querySelector('.no-hd .thismonth');
     $.ajax({
         url: '/api/meetings/count/years/',
         dataType: 'json',
         data: {},
         success: function (json) { // 获取当前数据
+            
             data = json;
             lastyear.innerHTML = data.lastyear;
             thisyear.innerHTML = data.thisyear;
+            thismonth.innerHTML = data.thismonth;
         }
     });
-
 })();
 
 //今年的柱状图
@@ -51,7 +52,7 @@
                 containLabel: true
             },
             //legend: {
-                //data: ['部级会议', '省级会议', '市级会议']
+            //data: ['部级会议', '省级会议', '市级会议']
             //},
             xAxis: [
                 {
@@ -307,7 +308,7 @@
                 {
                     name: '部级会议',
                     type: 'bar',
-                    barWidth: '35%',
+                    barWidth: '40%',
                     stack: '会议',
                     //categories:data.categories,
                     data: data.level1,
@@ -316,24 +317,24 @@
                             color: 'rgba(0,123,255, 0.8)',
                         }
                     },
-                    label: {
-                        show: false, // 开启显示
-                        //rotate: 70, // 旋转70度
-                        position: 'inside', // 在上方显示
-                        //distance: 20, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
-                        verticalAlign: 'middle',
-                        textStyle: { // 数值样式
-                            color: 'white',
-                            fontSize: 14
-                        }
-                    }
+                    //label: {
+                    //    show: false, // 开启显示
+                    //rotate: 70, // 旋转70度
+                    //    position: 'inside', // 在上方显示
+                    //distance: 20, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
+                    //    verticalAlign: 'middle',
+                    //    textStyle: { // 数值样式
+                    //        color: 'white',
+                    //        fontSize: 14
+                    //    }
+                    //}
                 },
                 {
                     name: '省级会议',
                     type: 'bar',
-                    barWidth: '35%',
+                    barWidth: '40%',
                     stack: '会议',
-                    
+
                     data: data.level2,
                     itemStyle: {
                         normal: {
@@ -341,24 +342,24 @@
                             color: 'rgba(161,47,47, 0.8)',
                         }
                     },
-                    label: {
-                        show: false, // 开启显示
-                        //rotate: 70, // 旋转70度
-                        position: 'inside', // 在上方显示
-                        //distance: 1, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
-                        verticalAlign: 'middle',
-                        textStyle: { // 数值样式
-                            color: 'white',
-                            fontSize: 14
-                        }
-                    }
+                    //label: {
+                    //    show: false, // 开启显示
+                    //rotate: 70, // 旋转70度
+                    //    position: 'inside', // 在上方显示
+                    //distance: 1, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
+                    //    verticalAlign: 'middle',
+                    //    textStyle: { // 数值样式
+                    //        color: 'white',
+                    //        fontSize: 14
+                    //    }
+                    //}
                 },
                 {
                     name: '市级会议',
                     type: 'bar',
-                    barWidth: '35%',
+                    barWidth: '40%',
                     stack: '会议',
-                    
+
                     data: data.level3,
                     itemStyle: {
                         normal: {
@@ -366,23 +367,23 @@
                             color: 'rgba(64,116,52, 0.8)',
                         }
                     },
-                    label: {
-                        show: false, // 开启显示
-                        //rotate: 70, // 旋转70度
-                        position: 'inside', // 在上方显示
-                        //distance: 1, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
-                        verticalAlign: 'middle',
-                        textStyle: { // 数值样式
-                            color: 'white',
-                            fontSize: 14
-                        }
-                    }
+                    //label: {
+                    //    show: false, // 开启显示
+                    //rotate: 70, // 旋转70度
+                    //    position: 'inside', // 在上方显示
+                    //distance: 1, // 距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
+                    //    verticalAlign: 'middle',
+                    //    textStyle: { // 数值样式
+                    //        color: 'white',
+                    //        fontSize: 14
+                    //    }
+                    //}
                 },
                 {
                     name: '会议汇总',
                     type: 'line',
-                    barWidth: '35%',
-                    
+                    barWidth: '40%',
+
                     data: data.data,
                     itemStyle: {
                         barBorderRadius: 5,
@@ -433,5 +434,111 @@
                 gotoIndex(xIndex);
             }
         })
+    }
+})();
+
+
+//今年各单位饼图
+(function () {
+    $.ajax({
+        url: '/api/meetings/count/offices/thisyear/',
+        dataType: 'json',
+        data: {},
+        success: function (json) { // 获取当前数据
+            data = json;
+            console.log(data)
+            generateChart(data);
+        }
+    });
+
+    function generateChart(data) {
+        //基于准备好的DOM，初始化echarts实例
+        var myChart = echarts.init(document.querySelector('.officepie .chart'));
+
+
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+
+            series: [
+                {
+                    type: 'pie',
+                    radius: '85%',
+                    center: ['50%', '50%'],
+
+                    selectedMode: 'single',
+                    data: data,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+
+        };
+
+        //使用刚指定的配置项和数据显示图表
+        myChart.setOption(option);
+        window.addEventListener('resize', function () {
+            myChart.resize();
+        });
+    }
+})();
+
+
+//去年各单位饼图
+(function () {
+    $.ajax({
+        url: '/api/meetings/count/offices/lastyear/',
+        dataType: 'json',
+        data: {},
+        success: function (json) { // 获取当前数据
+            data = json;
+            console.log(data)
+            generateChart(data);
+        }
+    });
+
+    function generateChart(data) {
+        //基于准备好的DOM，初始化echarts实例
+        var myChart = echarts.init(document.querySelector('.officepielast .chart'));
+
+
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+
+            series: [
+                {
+                    type: 'pie',
+                    radius: '85%',
+                    center: ['50%', '50%'],
+
+                    selectedMode: 'single',
+                    data: data,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+
+        };
+
+        //使用刚指定的配置项和数据显示图表
+        myChart.setOption(option);
+        window.addEventListener('resize', function () {
+            myChart.resize();
+        });
     }
 })();
