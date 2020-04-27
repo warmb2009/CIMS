@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Meeting
+from .models import Office
+
 from rest_framework import viewsets
 from .serializers import MeetingSerializer
 from django.views.generic.base import View
@@ -16,6 +18,61 @@ def chart(request):
     return render(request, 'chart.html')
 
 
+class MeetingsCountThisYearOfficeView(View):
+
+    def get(self, request):
+        """
+        查询今年 各单位会议数量
+        路由：GET /books/
+        """
+        info_list = []
+        today = datetime.now()
+
+        office_list = Office.objects.all()
+
+        for office in office_list:
+            office_id = office.id
+            office_count = Meeting.objects.filter(office__id=office_id, date__year=today.year).count()
+            if office_count == 0: # 数量为0的不计入
+                continue
+            
+            office_info = {}
+            office_info['name'] = office.name
+            office_info['value'] = office_count
+
+            info_list.append(office_info)
+
+        return JsonResponse(info_list, safe=False)
+
+
+class MeetingsCountLastYearOfficeView(View):
+
+    def get(self, request):
+        """
+        查询去年 各单位会议数量
+        路由：GET /books/
+        """
+        info_list = []
+        today = datetime.now()
+
+        office_list = Office.objects.all()
+
+        for office in office_list:
+            office_id = office.id
+            
+            office_count = Meeting.objects.filter(office__id=office_id, date__year=today.year-1).count()
+            if office_count == 0: # 数量为0的不计入
+                continue
+            
+            office_info = {}
+            office_info['name'] = office.name
+            office_info['value'] = office_count
+
+            info_list.append(office_info)
+
+        return JsonResponse(info_list, safe=False)
+
+
 class MeetingViewSet(viewsets.ModelViewSet):
     """
     查看会议内容
@@ -26,23 +83,26 @@ class MeetingViewSet(viewsets.ModelViewSet):
 
 class MeetingsCountYearsView(View):
     """
-    查询今年会议数量
+    查询今年及去年会议数量
     """
 
     def get(self, request):
         """
-        查询所有图书
+        查询今年及去年会议数量
         路由：GET /books/
         """
         info_dic = {}
         today = datetime.now()
 
         thisyear_count = Meeting.objects.filter(date__year=today.year).count()
+        thismonth_count = Meeting.objects.filter(date__year=today.year, date__month=today.month).count()
         lastyear_count = Meeting.objects.filter(
             date__year=today.year-1).count()
 
         info_dic['thisyear'] = thisyear_count
         info_dic['lastyear'] = lastyear_count
+        info_dic['thismonth'] = thismonth_count
+
         return JsonResponse(info_dic, safe=False)
 
 
