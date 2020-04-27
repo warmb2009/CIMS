@@ -24,19 +24,19 @@ router.register(r'meeting', views.MeetingViewSet)
 
 
 urlpatterns = [
-
-    url('^$',views.index),
+    url('^$',views.chart),
     url('chart.html',views.chart),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls),
-    url(r'^api/meetings$', views.MeetingsAPIView.as_view(), name='meetings'),
-    url(r'^api/meetings/(?P<pk>\d+)/$', views.MeetingAPIView.as_view(), name='meeting'),
+    path('admin/', admin.site.urls), # 后台
+    url(r'^api/meetings$', views.MeetingsAPIView.as_view(), name='meetings'), # 所有会议接口
+    url(r'^api/meetings/(?P<pk>\d+)/$', views.MeetingAPIView.as_view(), name='meeting'), # 某会议查询接口
     
-    url(r'^api/meetings/count/everymonth/thisyear/$', views.MeetingsCountEveryMonthThisYearView.as_view(), name='meetingcount'),
-    url(r'^api/meetings/count/everymonth/lastyear/$', views.MeetingsCountEveryMonthLastYearView.as_view(), name='meetingcount'),
+    url(r'^api/meetings/count/everymonth/thisyear/$', views.MeetingsCountEveryMonthThisYearView.as_view(), name='meetingcount'), # 今年所有会议
+    url(r'^api/meetings/count/everymonth/lastyear/$', views.MeetingsCountEveryMonthLastYearView.as_view(), name='meetingcount'), # 去年所有会议
 
-    url(r'^api/meetings/count/years/$', views.MeetingsCountYearsView.as_view(), name='meetingcount'),
-
+    url(r'^api/meetings/count/years/$', views.MeetingsCountYearsView.as_view(), name='meetingcount'), # 计算会议数量
+    url(r'^api/meetings/count/offices/thisyear/$', views.MeetingsCountThisYearOfficeView.as_view(), name='meetingofficecountthisyear'), # 计算会议数量
+    url(r'^api/meetings/count/offices/lastyear/$', views.MeetingsCountLastYearOfficeView.as_view(), name='meetingofficecountlastyear'), # 计算会议数量
 ]
 

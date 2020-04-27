@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+#    'corsheaders',
     'CIMSMain', # 会议信息系统
     'CS', # 会议保障通信录
     'RC', # 点名系统
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'CIMS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, './databases/db.sqlite3'),
     }
 }
 
@@ -157,7 +157,7 @@ SUIT_CONFIG = {  # suit页面配置
     # label表示name，app表示上边的install的app，models表示用了哪些models
 }
 
-
+'''
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ()
@@ -197,3 +197,4 @@ CORS_ORIGIN_REGEX_WHITELIST = [
 
 ]
 
+'''
