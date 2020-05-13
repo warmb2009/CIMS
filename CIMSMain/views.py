@@ -17,6 +17,8 @@ def index(request):
 def chart(request):
     return render(request, 'chart.html')
 
+def fullheight(request):
+    return render(request, 'full-height.html')
 
 class MeetingsCountThisYearOfficeView(View):
 
