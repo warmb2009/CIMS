@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+@font-face {
+  font-family: electronicFont;
+  src: url(/static/packages/chart/font/DS-DIGIT.TTF);
+  color: black;
+}
+body {
+  background-color: white;
+  line-height: 1.15;
+  margin: 20px;
+  color: black;
+}
