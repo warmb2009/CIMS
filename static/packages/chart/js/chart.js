@@ -520,7 +520,7 @@
                     type: 'pie',
                     radius: '85%',
                     center: ['50%', '50%'],
-
+                    //roseType: 'radius',
                     selectedMode: 'single',
                     data: data,
                     emphasis: {
@@ -529,7 +529,14 @@
                             shadowOffsetX: 0,
                             shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
-                    }
+                    },
+                    //label:{
+                    //fontSize:10,
+                    //},
+                    //labelLine:{
+                    //    length:2,
+                    //    length2:4,
+                    //},
                 }
             ]
 
