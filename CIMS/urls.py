@@ -27,6 +27,9 @@ urlpatterns = [
     url('^$',views.chart),
     url('chart.html',views.chart),
     url('list.html',views.fullheight),
+
+    url('list/(?P<pk>\d+)/$',views.list),
+    url('lists/$',views.lists),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls), # 后台
