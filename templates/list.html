@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="UTF-8">
+        <title>泰安图控会议汇总</title>
+        <meta name="keywords" content="泰安 视频会议 汇总">
+        <meta name="description" content="显示所有召开的视频会议">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+  <body>
+    <style> 
+      table,table tr th, table tr td { border:1px solid #0094ff; }
+      table { min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse; padding:2px;}   
+</style>
+</style> 
+    <div class="table">
+      <table id="table">
+        <tr>
+          <td>会议时间</td>
+          <td>会议名称</td>
+          <td>会议级别</td>
+          <td>会议信道</td>
+          <td>办会单位</td>
+          <td>会议地点</td>          
+        </tr>
+
+
+          {% for item_list in table_list %}
+          <tr>
+          <td>{{ item_list.date }}</td>
+          <td>{{ item_list.name }}</td>
+          <td>{{ item_list.level }}</td>
+          <td>{{ item_list.channel }}</td>
+          <td>{{ item_list.office }}</td>
+          <td>{{ item_list.location }}</td>
+          </tr>
+          {%endfor%}
+
+        </table>
+    </div>
+
+        {# 实现分页标签的代码 #}
+    {# 这里使用 bootstrap 渲染页面 #}
+    <div id="pages" class="text-center" >
+        <nav>
+            <ul class="pagination">
+                <li class="step-links">
+                {% if pages.has_previous %}
+                    <a class='active' href="/list/{{ pages.pnumber }}/">上一页</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ pages.current }} of {{ pages.num_pages }}</span>
+
+                {% if pages.has_next %}
+                    <a class='active' href="/list/{{ pages.nnumber }}/">下一页</a>
+                {% endif %}
+                </li></ul></nav></div>
+    </body>
+</html>
