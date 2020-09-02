@@ -13,12 +13,71 @@ from datetime import datetime, timedelta
 def index(request):
     return render(request, 'index.html')
 
-
 def chart(request):
     return render(request, 'chart.html')
 
 def fullheight(request):
     return render(request, 'full-height.html')
+
+def lists(request):
+    return list(request, 1)
+    
+def list(request, pk):
+    if pk is not None:
+        pk = int(pk)
+        
+    per_num = 20
+    from_p = 0
+    to_p = 10
+        
+    if pk is not None:
+        from_p = (pk - 1) * per_num
+        to_p = pk * per_num
+
+    tables_count = Meeting.objects.count()
+    table_list = Meeting.objects.order_by('-date')[from_p:to_p]
+
+    context_list = []
+    for item in table_list:
+        new_item = {}
+        
+        new_item['name'] = item.name
+        new_item['date'] = str(item.date)
+        new_item['location'] = item.location.name
+
+
+        channel_all = item.channel.all()                                    
+        localchannel_all = item.local_channel.all()                         
+                                                                                   
+        channel_list_str = '/'.join([channel.name for channel in channel_all])                         
+        localchannel_list_str = '/'.join([channel.name for channel in localchannel_all])
+            
+        new_item['channel'] = localchannel_list_str
+        
+        new_item['office'] = item.office.name
+        new_item['level'] = item.from_level.name + '/' + item.to_level.name
+        new_item['meeting_category'] = item.meeting_category.name
+        context_list.append(new_item)
+
+    context = {"table_list" : context_list}
+    pages = {}
+    pages['pnumber'] = pk - 1
+    pages['nnumber'] = pk + 1
+    pages['current'] = pk
+
+    all_num = tables_count / per_num + 1
+    pages['num_pages'] = all_num
+    pages['has_previous'] = True
+    pages['has_next'] = True
+
+    if pk >= all_num:
+        pages['has_next'] = False
+
+    if pk <= 1:
+        pages['has_previous'] = False
+    
+    return render(request, 'list.html', {'table_list':context_list, 'pages':pages})
+
 
 class MeetingsCountThisYearOfficeView(View):
 
