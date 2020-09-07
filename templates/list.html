@@ -28,7 +28,7 @@
 
           {% for item_list in table_list %}
           <tr>
-          <td>{{ item_list.date }}</td>
+          <td>{{ item_list.date | date:'Y年n月j日 G时i分' }}</td>
           <td>{{ item_list.name }}</td>
           <td>{{ item_list.level }}</td>
           <td>{{ item_list.channel }}</td>
