@@ -17,11 +17,12 @@
       <table id="table">
         <tr>
           <td>会议时间</td>
-          <td>会议名称</td>
+          <td  width="400">会议名称</td>
           <td>会议级别</td>
           <td>会议信道</td>
           <td>办会单位</td>
-          <td>会议地点</td>          
+          <td>会议地点</td>
+          <td  width="200">备注</td>          
         </tr>
 
 
@@ -33,6 +34,7 @@
           <td>{{ item_list.channel }}</td>
           <td>{{ item_list.office }}</td>
           <td>{{ item_list.location }}</td>
+          <td>{{ item_list.remark }}</td>
           </tr>
           {%endfor%}
 
