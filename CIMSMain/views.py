@@ -42,7 +42,7 @@ def list(request, pk):
         new_item = {}
         
         new_item['name'] = item.name
-        new_item['date'] = str(item.date)
+        new_item['date'] = item.date
         new_item['location'] = item.location.name
 
 
