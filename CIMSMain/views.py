@@ -57,6 +57,8 @@ def list(request, pk):
         new_item['office'] = item.office.name
         new_item['level'] = item.from_level.name + '/' + item.to_level.name
         new_item['meeting_category'] = item.meeting_category.name
+        new_item['remark'] = item.remark
+        
         context_list.append(new_item)
 
     context = {"table_list" : context_list}
@@ -65,7 +67,7 @@ def list(request, pk):
     pages['nnumber'] = pk + 1
     pages['current'] = pk
 
-    all_num = tables_count / per_num + 1
+    all_num = tables_count // per_num + 1
     pages['num_pages'] = all_num
     pages['has_previous'] = True
     pages['has_next'] = True
